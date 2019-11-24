@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, Image, Button, Alert, StyleSheet, ScrollView, FlatList, SectionList } from 'react-native';
 import Greeting from './TestComponents/Greeting'
 import InputComponent from './TestComponents/InputComponent'
 import ButtonComponent from './TestComponents/ButtonComponent'
@@ -35,9 +35,33 @@ export default class App extends Component {
         {/*<View style={{ height: 100, width: 100, backgroundColor: '#000' }} />*/}
         <InputComponent/>
 
-        <View>
-          <ButtonComponent />
-        </View>
+        <SectionList
+          sections={[
+            {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
+            {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+          keyExtractor={(item, index) => index}
+        />
+
+        <FlatList
+          data={[
+            { key: 1},
+            { key: 2},
+            { key: 3},
+            { key: 4},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        />
+        {/*<ScrollView>
+          <View>
+            <ButtonComponent />
+          </View>
+          <View>
+            <ButtonComponent />
+          </View>
+        </ScrollView>*/}
 
         {/*<Button
           onPress={() => Alert.alert('你点击了按钮！')}
@@ -107,5 +131,21 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     backgroundColor: '#00ffff'
-  }
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    backgroundColor: '#f00',
+    marginBottom: 10
+  },
+  sectionHeader: {
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(247,247,247,1.0)',
+  },
 })
