@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, Button, Alert, StyleSheet } from 'react-native';
 import Greeting from './TestComponents/Greeting'
 import InputComponent from './TestComponents/InputComponent'
+import ButtonComponent from './TestComponents/ButtonComponent'
 
 export default class App extends Component {
   constructor() {
@@ -19,9 +20,9 @@ export default class App extends Component {
     }, 1000)*/
   }
 
-  _onPressButton() {
+  /*_onPressButton() {
     Alert.alert('You tapped the button!')
-  }
+  }*/
 
   render() {
     let pic = {
@@ -34,7 +35,11 @@ export default class App extends Component {
         {/*<View style={{ height: 100, width: 100, backgroundColor: '#000' }} />*/}
         <InputComponent/>
 
-        <Button
+        <View>
+          <ButtonComponent />
+        </View>
+
+        {/*<Button
           onPress={() => Alert.alert('你点击了按钮！')}
           title='点击'
           color='#f0f'
@@ -57,7 +62,7 @@ export default class App extends Component {
             title="OK!"
             color="#841584"
           />
-        </View>
+        </View>*/}
 
         {/*<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', }}>
           <View style={{ width: 50, height: 50, backgroundColor: 'powderblue' }}></View>
