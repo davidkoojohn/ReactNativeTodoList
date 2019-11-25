@@ -62,9 +62,9 @@ export default class App extends Component{
   renderMovie(item) {
     return (
       <View style={styles.item}>
-        <Image style={styles.poster} source={{uri: MOCKED_MOVIES_DATA[0].posters.thumbnail}}/>
+        <Image style={styles.poster} source={{uri: item.posters.thumbnail}}/>
         <View style={styles.content}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
           <Text style={styles.desc}>{item.year}</Text>
         </View>
       </View>
@@ -87,15 +87,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#efefef',
     borderRadius: 5,
-    backgroundColor: '#f00'
+    backgroundColor: '#eee'
   },
   content: {
+    flex: 1,
     paddingLeft: 10
   },
   title: {
     fontSize: 30,
     color: '#333',
-    lineHeight: 60
+    lineHeight: 60,
   },
   desc: {
     lineHeight: 40,
