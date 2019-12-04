@@ -1,58 +1,51 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {
-  StyleSheet,
   View,
   Text,
-  StatusBar,
-  SafeAreaView,
-  ScrollView,
+  Button,
 } from 'react-native'
 
-import MovieList from './TestComponents/MovieList'
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-const REQUEST_URL = "https://raw.githubusercontent.com/facebook/react-native/0.51-stable/docs/MoviesExample.json";
-
-export default class App extends Component{
-  constructor() {
-    super()
-    this.state = {
-      movies: []
-    }
-  }
-
-  async componentDidMount() {
-    const movies = await this.fetchMovies()
-    this.setState({
-      movies
-    })
-  }
-
-  async fetchMovies() {
-    try {
-      let response = await fetch(REQUEST_URL);
-      let responseJson = await response.json();
-      return responseJson.movies;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
+class HomeScreen extends React.Component {
   render() {
-    return(
-      <View style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <ScrollView contentInsetAdjustmentBehavior="automatic">
-            {this.state.movies.length > 0
-              ? this.state.movies.map((item, index) => <MovieList movie={item} key={index}/> )
-              : <Text>loading....</Text>}
-          </ScrollView>
-        </SafeAreaView>
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'red' }}>
+        <Text style={{backgroundColor: '#0f0', color: '#f0f'}}>Home Screen</Text>
+        <Button
+          title='Go to details'
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
+
       </View>
-    )
+    );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {}
-})
+class DetailsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{color: '#00f'}}>Details Screen</Text>
+        <Button
+          title="Go to Details... again"
+          onPress={() => this.props.navigation.goBack()}
+        />
+      </View>
+    );
+  }
+}
+
+const AppNavigator = createStackNavigator({
+  /*Home: {
+    screen: HomeScreen,
+  },*/
+  Home: HomeScreen,
+  Details: DetailsScreen,
+}, {
+  initialRouteName: 'Home',
+});
+
+export default createAppContainer(AppNavigator);
+
