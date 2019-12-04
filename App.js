@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -8,14 +8,26 @@ import {
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-class HomeScreen extends React.Component {
+class HomeScreen extends Component {
+  componentDidMount() {
+    console.log('home componentDidMount')
+  }
+  componentWillUnmount() {
+    console.log('home Unmount')
+  }
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'red' }}>
         <Text style={{backgroundColor: '#0f0', color: '#f0f'}}>Home Screen</Text>
         <Button
           title='Go to details'
-          onPress={() => this.props.navigation.navigate('Details')}
+          onPress={() => {
+            this.props.navigation.navigate('Details', {
+              id: '3456789',
+              info: 'from to home'
+            })
+          }}
         />
 
       </View>
@@ -23,14 +35,31 @@ class HomeScreen extends React.Component {
   }
 }
 
-class DetailsScreen extends React.Component {
+class DetailsScreen extends Component {
+  componentDidMount(){
+    console.log(this.props.navigation.getParam('id', 'info'))
+    console.log('details componentDidMount')
+  }
+
+  componentWillUnmount() {
+    console.log('details Unmount')
+  }
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{color: '#00f'}}>Details Screen</Text>
         <Button
-          title="Go to Details... again"
+          title="back home"
           onPress={() => this.props.navigation.goBack()}
+        />
+        <Button
+          title="Go to Details... again"
+          onPress={() => {
+            this.props.navigation.push('Details', {
+              id: 'hahaha'
+            })
+          }}
         />
       </View>
     );
