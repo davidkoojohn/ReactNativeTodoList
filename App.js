@@ -9,6 +9,10 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 class HomeScreen extends Component {
+  static navigationOptions = {
+    title: 'Home',
+  };
+
   componentDidMount() {
     console.log('home componentDidMount')
   }
@@ -17,6 +21,7 @@ class HomeScreen extends Component {
   }
 
   render() {
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'red' }}>
         <Text style={{backgroundColor: '#0f0', color: '#f0f'}}>Home Screen</Text>
@@ -36,6 +41,12 @@ class HomeScreen extends Component {
 }
 
 class DetailsScreen extends Component {
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: navigation.getParam('id', 'A Nested Details Screen'),
+    };
+  }
+
   componentDidMount(){
     console.log(this.props.navigation.getParam('id', 'info'))
     console.log('details componentDidMount')
