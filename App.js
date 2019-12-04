@@ -51,7 +51,7 @@ export default class App extends Component{
         <SafeAreaView>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
             {this.state.movies.length > 0
-              ? this.state.movies.map((item) => this.renderMovie(item) )
+              ? this.state.movies.map((item, index) => this.renderMovie(item, index) )
               : <Text>loading....</Text>}
           </ScrollView>
         </SafeAreaView>
@@ -59,9 +59,9 @@ export default class App extends Component{
     )
   }
 
-  renderMovie(item) {
+  renderMovie(item, index) {
     return (
-      <View style={styles.item}>
+      <View style={styles.item} key={index}>
         <Image style={styles.poster} source={{uri: item.posters.thumbnail}}/>
         <View style={styles.content}>
           <Text style={styles.title} numberOfLines={1}>{item.title}</Text>

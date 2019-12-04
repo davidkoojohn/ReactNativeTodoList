@@ -1,3 +1,10 @@
+## 调试
+
+- 开启Developer Menu
+  > 模拟器： `Command + D`
+- 远端(浏览器)代码调试
+  > `Developer Menu`选择`Debug`
+
 
 ## 使用Flexbox布局
 
