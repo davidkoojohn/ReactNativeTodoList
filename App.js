@@ -87,6 +87,14 @@ class DetailsScreen extends Component {
     return {
       title: navigation.getParam('id', 'A Nested Details Screen'),
       // title: navigation.state.params.id,
+      headerLeft: () => (
+        <View>
+          <Image
+            source={require('./icon.png')}
+            style={{ width: 30, height: 30 }}
+          />
+        </View>
+      ),
       headerTintColor: '#f00',
       headerStyle: {
         backgroundColor: '#9e5cf4',
