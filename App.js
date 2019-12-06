@@ -77,6 +77,12 @@ class HomeScreen extends Component {
           <Text>{ this.state.num }</Text>
         </View>
 
+        <Button
+          onPress={() => this.props.navigation.navigate('MyModal')}
+          title="Info"
+          color="#fff"
+        />
+
       </View>
     );
   }
@@ -140,25 +146,59 @@ class DetailsScreen extends Component {
   }
 }
 
-const AppNavigator = createStackNavigator({
-  /*Home: {
-    screen: HomeScreen,
-  },*/
-  Home: HomeScreen,
-  Details: DetailsScreen,
-}, {
-  initialRouteName: 'Home',
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: '#20a2f7',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      // fontSize: 30
-    },
+class ModalScreen extends Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+        <Button
+          onPress={() => this.props.navigation.goBack()}
+          title="Dismiss"
+        />
+      </View>
+    );
   }
-});
+}
 
-export default createAppContainer(AppNavigator);
+const MainStack = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    Details: {
+      screen: DetailsScreen,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#20a2f7',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        // fontSize: 30
+      },
+    }
+  }
+);
+
+const AppNavigator = createStackNavigator(
+  {
+    Main: {
+      screen: MainStack,
+    },
+    MyModal: {
+      screen: ModalScreen,
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+export default AppContainer
 
