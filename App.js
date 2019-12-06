@@ -12,7 +12,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 class LogoTitle extends Component {
   render() {
     return (
-      <View style={{height: 120, width: 300, backgroundColor: 'red', paddingLeft: 20}}>
+      <View style={{height: 40, width: 300, backgroundColor: 'red', paddingLeft: 20}}>
         <Image
           source={require('./icon.png')}
           style={{ width: 30, height: 30 }}
@@ -23,24 +23,40 @@ class LogoTitle extends Component {
 }
 
 class HomeScreen extends Component {
-  static navigationOptions = {
-    title: 'Home',
-    headerTitle: () => <LogoTitle/>,
-    headerStyle: {
-      backgroundColor: '#f0f',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      fontSize: 30
-    },
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'Home',
+      headerTitle: () => <LogoTitle/>,
+      headerRight: () => (
+        <View style={{backgroundColor: '#0ff'}}>
+          <Button
+            onPress={navigation.getParam('rightBtnHandle')}
+            title="+1"
+            color="#fff"
+          />
+        </View>
+      ),
+    }
   };
 
-  componentDidMount() {
-    console.log('home componentDidMount')
+  constructor() {
+    super()
+    this.state = {
+      num: 0
+    }
   }
-  componentWillUnmount() {
-    console.log('home Unmount')
+
+  componentDidMount() {
+    const { navigation } = this.props
+    navigation.setParams({
+      rightBtnHandle: this._rightBtnHandle
+    })
+  }
+
+  _rightBtnHandle = () => {
+    this.setState({
+      num: this.state.num + 1
+    })
   }
 
   render() {
@@ -57,6 +73,9 @@ class HomeScreen extends Component {
             })
           }}
         />
+        <View>
+          <Text>{ this.state.num }</Text>
+        </View>
 
       </View>
     );
