@@ -3,14 +3,37 @@ import {
   View,
   Text,
   Button,
+  Image,
 } from 'react-native'
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+class LogoTitle extends Component {
+  render() {
+    return (
+      <View style={{height: 120, width: 300, backgroundColor: 'red', paddingLeft: 20}}>
+        <Image
+          source={require('./icon.png')}
+          style={{ width: 30, height: 30 }}
+        />
+      </View>
+    );
+  }
+}
+
 class HomeScreen extends Component {
   static navigationOptions = {
     title: 'Home',
+    headerTitle: () => <LogoTitle/>,
+    headerStyle: {
+      backgroundColor: '#f0f',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: 30
+    },
   };
 
   componentDidMount() {
@@ -44,6 +67,15 @@ class DetailsScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       title: navigation.getParam('id', 'A Nested Details Screen'),
+      // title: navigation.state.params.id,
+      headerTintColor: '#f00',
+      headerStyle: {
+        backgroundColor: '#9e5cf4',
+      },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        fontSize: 20
+      },
     };
   }
 
@@ -72,6 +104,10 @@ class DetailsScreen extends Component {
             })
           }}
         />
+        <Button
+          title="Update the title"
+          onPress={() => this.props.navigation.setParams({ id: 'Updated!' })}
+        />
       </View>
     );
   }
@@ -85,6 +121,16 @@ const AppNavigator = createStackNavigator({
   Details: DetailsScreen,
 }, {
   initialRouteName: 'Home',
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: '#20a2f7',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      // fontSize: 30
+    },
+  }
 });
 
 export default createAppContainer(AppNavigator);
